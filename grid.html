@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GO</title>
+        <link href="framework/main.css" rel="stylesheet" type="text/css">
+        <link href="framework/style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <div class="outlined">
+            <div class="grid"></div>
+        </div>
+        <div id="move">Black to move</div>
+        <button id="btn1">PASS</button>
+        <button id="btn2">BACKWARD</button>
+        <button id="btn3">FORWARD</button>
+        <button id="btn4">RESTART</button>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            var rowHTML = '<div class="row"></div>';
+            var cellWithStoneHTML = '<div class="cell"><div class="stone initial" id="#"></div></div></div>';
+            var cellgrp = ''
+            var stone = '<div class="stone initial" id="#"></div>'
+
+            for(i=0; i<19; i++){
+                $('.grid').append(rowHTML)
+                cellgrp+=cellWithStoneHTML;
+            }
+            
+            $('.row').html(cellgrp);
+            
+        </script>
+        <!-- <script src="functions.js"></script> -->
+        <script src="game.js"></script>
+    </body>
+</html>
