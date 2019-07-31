@@ -25,7 +25,6 @@ var currentColor;
 var pass = false;
 var reverseMode;
 var stateCount = 0;
-var groupLiberties;
 var ko = false;
 var rowCount = 0;
 var stoneCount = 0;
@@ -84,11 +83,10 @@ $('.stone').click(function(){ if(reverseMode === false){//begin
         $(current).attr('class','stone '+currentGrp); // group assigned to the current stone.
         for(let member of friendlygrps){ // merging all friendly groups into one.
             $('.'+member).attr('class','stone ' + currentGrp);
-            delete groupLiberties[member];
         }
     }
     else{ // if there are no friendly neighbours
-        if(Object.keys(groupLiberties).length === 0){ // checking if board is empty
+        if(Object.keys(states).length === 1){ // checking if board is empty
             currentGrp = 'g1';
         }
 
@@ -105,7 +103,6 @@ $('.stone').click(function(){ if(reverseMode === false){//begin
             if(opponentLiberties===0){
                 $('.'+member).css('background-color','rgba(0, 0, 0, 0)');
                 $('.'+member).attr('class','stone initial');
-                delete groupLiberties[member];
                 ko = isKo(); // checking if the deletion of the opponent would result in a ko.
                 if(ko){
                     revertState();
@@ -123,8 +120,7 @@ $('.stone').click(function(){ if(reverseMode === false){//begin
         }
         else{
             mapping(posMap,1);
-            groupLiberties[currentGrp] = currentLiberties;
-            stateDataupdate(states,posMap,groupLiberties);
+            stateDataupdate(states,posMap);
             
         }
         
@@ -170,7 +166,6 @@ $('#btn4').click(function(){ // Resume button
             delete states[i];
         }
     }
-    groupLiberties=JSON.parse(JSON.stringify(states[key][19]));
 });
 
 /////  FUNCTIONS /////////////////////
@@ -186,21 +181,21 @@ function logger1(msg,obj){
 
 function isKo(){
     mapping(posMap,1);
-    stateDataupdate(states,posMap,groupLiberties);
+    stateDataupdate(states,posMap);
     var lastKey = Object.keys(states).length-1;
     for(let i in states){
         if(i < lastKey){
             if(processState(states[i]) === processState(states[lastKey]) && i%2===lastKey%2){ // modulus operator on key tells whether the key is even or odd which in turn indicates who's turn it was
                 alert('Ko! of '+lastKey+ ' with board position after move: '+i); 
                 delete states[lastKey];
-                posMap = JSON.parse(JSON.stringify(states[lastKey-1])).splice(0,19);
+                posMap = JSON.parse(JSON.stringify(states[lastKey-1]));
                 return true;
             }
         }
         
     }
     delete states[lastKey];
-    posMap = JSON.parse(JSON.stringify(states[lastKey-1])).splice(0,19);
+    posMap = JSON.parse(JSON.stringify(states[lastKey-1]));
     return false;
 }
 
@@ -291,10 +286,9 @@ function gridLocation(i,j){
     return result;
 }
 
-function stateDataupdate(states,posMap,groupLiberties){
+function stateDataupdate(states,posMap){
     states[Object.keys(states).length] = [];
     states[Object.keys(states).length-1]=JSON.parse(JSON.stringify(posMap));
-    states[Object.keys(states).length-1].push(JSON.parse(JSON.stringify(groupLiberties)));
 }
 
 function initializeMap(){
@@ -310,7 +304,6 @@ function initializeMap(){
     states[0]=JSON.parse(JSON.stringify(posMap));
     states[0].push({});
 
-    groupLiberties = {};
     reverseMode = false;
     $('.stone').css('background-color','rgba(0, 0, 0, 0)');
     $('.stone').attr('class','stone initial');
@@ -336,7 +329,6 @@ function neighbourStones(node){
 
 function revertState(key=Object.keys(states).length-1){
     mapping(states[key],-1);
-    groupLiberties = JSON.parse(JSON.stringify(states[key][19]));
     if(key%2===0){
         $('#move').html('Black to move');
     }
