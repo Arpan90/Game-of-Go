@@ -2,4 +2,4 @@
 This is a repository for a game of Go developed via jQuery.
 
 
-Do not review till I say. I have refactored the entire code with a matrix based approach which is far neater. Only the implementation of scoring function remains, on which I am working right now.
+Do not review till I say. I plan to refactor the code into a matrix based approach.
