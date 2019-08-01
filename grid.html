@@ -11,11 +11,12 @@
             <div class="grid"></div>
         </div>
         <div id="move">Black to move</div>
-        <button id="btn1">PASS</button>
-        <button id="btn2">BACKWARD</button>
-        <button id="btn3">FORWARD</button>
-        <button id="btn4">RESUME</button>
-        <button id="btn5">RESTART</button>
+        <button class="btn" id="btn1">PASS</button>
+        <button class="btn" id="btn2">BACKWARD</button>
+        <button class="btn" id="btn3">FORWARD</button>
+        <button class="btn" id="btn4">RESUME</button>
+        <button class="btn" id="btn5">RESTART</button>
+        <button class="btn" id="btn6">SCORE</button>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script>
             var rowHTML = '<div class="row"></div>';
@@ -31,7 +32,8 @@
             $('.row').html(cellgrp);
             
         </script>
-        <!-- <script src="functions.js"></script> -->
+        <script src="functions.js"></script>
+        <script src="buttons.js"></script>
         <script src="game.js"></script>
     </body>
 </html>
