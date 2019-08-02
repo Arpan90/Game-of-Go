@@ -1,5 +1,5 @@
 $('#btn1').click(function(){ // Pass button
-    if(pass === false){ // if the Pass button has not been clicked twice consecutively.
+    if(pass === false || Object.keys(states).length === 1){ // if the Pass button has not been clicked twice consecutively and no player has made a move
         if($('#move').html() === 'Black to move'){
             $('#move').html('White to move');
         }
@@ -9,7 +9,7 @@ $('#btn1').click(function(){ // Pass button
         pass = true;
     }
 
-    else{ // if the Pass button has been clicked twice consecutively.
+    else if(pass === true && Object.keys(states).length > 1){ // if the Pass button has been clicked twice consecutively.
         $('.btn').hide();
         $('#btn4').show();
         $('#btn5').show();
