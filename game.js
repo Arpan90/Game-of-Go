@@ -120,6 +120,7 @@ $('.stone').click(function(){ current = this; if(reverseMode === false && deadDe
 else if(deadDeletion === true){ // tells whether both players have passed their moves consecutively or not.
     if($(current).css('background-color') != 'rgba(0, 0, 0, 0)'){ 
         $(current).css('background-color','rgba(0, 0, 0, 0)') // deletes the stone chosen as dead.
+        $(current).attr('class','stone initial');
         posMap[mapLocation(current)[0]] [mapLocation(current)[1]] = 0;
         stateDataupdate(states,posMap);
     }
