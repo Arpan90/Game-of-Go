@@ -71,5 +71,6 @@ $('#btn5').click(function(){ // Restart button
 
 $('#btn6').click(function(){ 
     deadDeletion = false;
+    $("#btn4").hide();
     scoring();
 });
