@@ -16,7 +16,7 @@ $('#btn1').click(function(){ // Pass button
         $('#btn6').show();
         $('#move').hide();
         deadDeletion = true;
-        alert('Click on the stones you consider dead in order to remove them.');
+        alert('Click on the stones you consider dead in order to remove them.\nClick on the Score button to get the final result.');
     }
     
 });
