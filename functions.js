@@ -21,6 +21,8 @@ function initializeMap(){
     states={0:[]};
     states[0]=JSON.parse(JSON.stringify(posMap));
     states[0].push({});
+    whiteGrps = [];
+    blackGrps = [];
     whiteScore = 0.5;
     blackScore = 0;
     pass = false;
@@ -28,6 +30,7 @@ function initializeMap(){
     reverseMode = false;
     deadDeletion = false;
     scored = false;
+    msg = '';
     $('.stone').css('background-color','rgba(0, 0, 0, 0)');
     $('.stone').attr('class','stone initial');
     $('#move').show();
@@ -218,6 +221,10 @@ function processState(map){
 }
 
 function scoring(){ if(Object.keys(states).length > 1){
+    if(scored === true){ // To prevent scoring again, adding to the previous score in case scoring button is clicked twice.
+        alert(msg);
+        return;
+    }
     reverseMode = true;
     var scoreClass = [];
     var white;
@@ -299,11 +306,15 @@ function scoring(){ if(Object.keys(states).length > 1){
     }
     var score = whiteScore-blackScore;
     if(score > 0){
-        alert('White won by '+score+' points!');
+        msg  = 'White won by '+score+' points!';
     }
     else{
-        alert('Black won by '+(-score)+' points!');
+        msg = 'Black won by '+(-score)+' points!';
     }
+
+    alert(msg);
     scored = true;
 
 }}
+
+
