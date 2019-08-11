@@ -11,6 +11,7 @@ var whiteScore;
 var blackScore;
 var deadDeletion;
 var scored;
+var msg;
 
 $('.row').each(function(index,value){ // provides unique id to each row and to each stone in each row.
     $(value).attr('id', rowCount.toString());
@@ -106,7 +107,9 @@ $('.stone').click(function(){ current = this; if(reverseMode === false && deadDe
         if(currentLiberties===0){
             revertState();
         }
-        else{
+        else if(posMap[mapLocation(current)[0]][mapLocation(current)[1]] === 0){ // will highlight the stone only if its position was previously blank
+            $('.stone').css('border','none'); // clears previous highlighting
+            $(current).css('border','2px solid red'); // highlights the recently placed stone
             mapping(posMap,1); // save the changes on the game board to the positional map.
             stateDataupdate(states,posMap); // save the current positional map in the latest key of the states object.
             
@@ -126,9 +129,3 @@ else if(deadDeletion === true){ // tells whether both players have passed their 
     }
 }
 });// end
-
-
-
-
-
-
