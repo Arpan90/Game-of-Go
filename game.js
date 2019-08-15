@@ -7,22 +7,35 @@ var rowCount = 0;
 var stoneCount = 0;
 var posMap;
 var states;
+var gameRecord = [];
 var whiteScore;
 var blackScore;
 var deadDeletion;
 var scored;
 var msg;
 
+
 $('.row').each(function(index,value){ // provides unique id to each row and to each stone in each row.
     $(value).attr('id', rowCount.toString());
-    rowCount++;
+    
     $(value).find('.stone').each(function(stoneIndex,stoneValue){
         $(stoneValue).attr('id', stoneCount.toString());
+        if(rowCount === 0 && stoneCount===0){ 
+            $(stoneValue).append('<div class="Xaxis">'+'A'+(stoneCount+1).toString()+'</div>'); 
+        }
+        else if(rowCount === 0 && stoneCount!=0){
+            $(stoneValue).append('<div class="Xaxis">'+(stoneCount+1).toString()+'</div>');
+        }
+
+        if(stoneCount === 0 && rowCount!=0){
+            $(stoneValue).append('<div class="Yaxis">'+String.fromCharCode(65+rowCount)+'</div>');
+        }
         stoneCount++;
     });
     stoneCount=0;
+    rowCount++;
 });
-
+$(".Xaxis").css("transform","translateX(10px)");
 initializeMap();
 
 $('.grid').click(function(){
@@ -110,6 +123,13 @@ $('.stone').click(function(){ current = this; if(reverseMode === false && deadDe
         else if(posMap[mapLocation(current)[0]][mapLocation(current)[1]] === 0){ // will highlight the stone only if its position was previously blank
             $('.stone').css('border','none'); // clears previous highlighting
             $(current).css('border','2px solid red'); // highlights the recently placed stone
+            if(currentColor === 'rgb(0, 0, 0)'){
+                var color = 'B'
+            }
+            else{
+                var color = 'W'
+            }
+            gameRecord.push(String.fromCharCode(mapLocation(current)[0]+65)+(mapLocation(current)[1]+1).toString()+color);
             mapping(posMap,1); // save the changes on the game board to the positional map.
             stateDataupdate(states,posMap); // save the current positional map in the latest key of the states object.
             
