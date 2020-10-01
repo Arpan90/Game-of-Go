@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GO</title>
+        <link href="framework/main.css" rel="stylesheet" type="text/css">
+        <link href="framework/style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <strong>Choose board size</strong>
+        <button class="btn" id="9" onclick="boardSize(event)">9x9</button> 
+        <button class="btn" id="13" onclick="boardSize(event)">13x13</button>
+        <button class="btn" id="19" onclick="boardSize(event)">19x19</button>
+        
+    </body>
+
+    <script>
+        const boardSize = (event) => {
+            localStorage.setItem("size", event.target.id)
+            location.href = "grid.html"
+        }
+    </script>
+</html>

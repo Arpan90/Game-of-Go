@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>GO</title>
+        <link href="framework/main.css" rel="stylesheet" type="text/css">
+        <link href="framework/style.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <div class="outlined">
+            <div class="grid"></div>
+        </div>
+        <div id="move">Black to move</div>
+        <button class="btn" id="btn1">PASS</button>
+        <button class="btn" id="btn2">BACKWARD</button>
+        <button class="btn" id="btn3">FORWARD</button>
+        <button class="btn" id="btn4">RESUME</button>
+        <button class="btn" id="btn5">RESTART</button>
+        <button class="btn" id="btn6">SCORE</button>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
+            // let urlParams = new URLSearchParams(location.search);
+            // let size = urlParams.get('size');
+            let size = Number(localStorage.size)
+            // localStorage.removeItem("size")
+            let cellSize = 0;
+            let stoneShift = 0;
+
+            if(size === 9){
+                cellSize = 6.1
+                stoneShift = 52;
+            }
+            else if(size === 13){
+                cellSize = 4.01
+                stoneShift = 50;
+            }
+            else{
+                cellSize = 2.605
+                stoneShift = 55;
+            }
+
+            var rowHTML = '<div class="row"></div>';
+            var cellWithStoneHTML = '<div class="cell" style="padding:' + cellSize + '%;"><div class="stone initial" id="#" style="transform:translate(-' + stoneShift+'%,-'+stoneShift + '%);" ></div></div></div>';
+            var cellgrp = ''
+            var stone = '<div class="stone initial" id="#"></div>'
+
+            for(i=0; i<size; i++){
+                $('.grid').append(rowHTML)
+                cellgrp+=cellWithStoneHTML;
+            }
+            
+            $('.row').html(cellgrp);
+            
+        </script>
+        <script src="functions.js"></script>
+        <script src="buttons.js"></script>
+        <script src="game.js"></script>
+    </body>
+</html>
